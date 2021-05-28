@@ -41,15 +41,15 @@
   <!-- RSS -->
   <link rel="alternate" href="/vtk-js/atom.xml" title="vtk.js" type="application/atom+xml">
   <!-- Open Graph -->
-  <meta name="description" content="vtkScalarsToColors - Superclass for mapping scalar values to colorsDescriptionvtkScalarsToColors is a general-purpose base class for objects thatconvert scalars to colors. This include vtkLookupTable">
+  <meta name="description" content="IntroductionvtkScalarsToColors is a general-purpose base class for objects that convertscalars to colors. This include vtkLookupTable classes and color transferfunctions. By itself, this class will si">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ScalarsToColors">
 <meta property="og:url" content="https://kitware.github.io/vtk-js/api/Common_Core_ScalarsToColors.html">
 <meta property="og:site_name" content="vtk.js">
-<meta property="og:description" content="vtkScalarsToColors - Superclass for mapping scalar values to colorsDescriptionvtkScalarsToColors is a general-purpose base class for objects thatconvert scalars to colors. This include vtkLookupTable">
+<meta property="og:description" content="IntroductionvtkScalarsToColors is a general-purpose base class for objects that convertscalars to colors. This include vtkLookupTable classes and color transferfunctions. By itself, this class will si">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-27T18:55:52.147Z">
-<meta property="article:modified_time" content="2021-05-27T18:55:52.147Z">
+<meta property="article:published_time" content="2021-05-28T02:10:13.946Z">
+<meta property="article:modified_time" content="2021-05-28T02:10:13.946Z">
 <meta property="article:author" content="Kitware Inc.">
 <meta name="twitter:card" content="summary">
   <!-- Google Analytics -->
@@ -102,19 +102,674 @@
                 <h1 class="article-title" itemprop="name">ScalarsToColors</h1>
               </header>
               <div class="article-content" itemprop="articleBody">
-                <h2 id="vtkScalarsToColors-Superclass-for-mapping-scalar-values-to-colors" class="article-heading"><a href="#vtkScalarsToColors-Superclass-for-mapping-scalar-values-to-colors" class="headerlink" title="vtkScalarsToColors - Superclass for mapping scalar values to colors"></a>vtkScalarsToColors - Superclass for mapping scalar values to colors<a class="article-anchor" href="#vtkScalarsToColors-Superclass-for-mapping-scalar-values-to-colors" aria-hidden="true"></a></h2><h3 id="Description" class="article-heading"><a href="#Description" class="headerlink" title="Description"></a>Description<a class="article-anchor" href="#Description" aria-hidden="true"></a></h3><p>vtkScalarsToColors is a general-purpose base class for objects that<br>convert scalars to colors. This include vtkLookupTable classes and<br>color transfer functions. By itself, this class will simply rescale<br>the scalars.</p>
-<p>The scalar-to-color mapping can be augmented with an additional<br>uniform alpha blend. This is used, for example, to blend a vtkActor’s<br>opacity with the lookup table values.</p>
-<p>Specific scalar values may be annotated with text strings that will<br>be included in color legends using SetAnnotations, SetAnnotation,<br>GetNumberOfAnnotatedValues, GetAnnotatedValue, GetAnnotation,<br>RemoveAnnotation, and ResetAnnotations.</p>
-<p>This class also has a method for indicating that the set of<br>annotated values form a categorical color map; by setting<br>IndexedLookup to true, you indicate that the annotated values are<br>the only valid values for which entries in the color table should<br>be returned. In this mode, subclasses should then assign colors to<br>annotated values by taking the modulus of an annotated value’s<br>index in the list of annotations with the number of colors in the<br>table.</p>
-<h2 id="See-Also" class="article-heading"><a href="#See-Also" class="headerlink" title="See Also"></a>See Also<a class="article-anchor" href="#See-Also" aria-hidden="true"></a></h2><p><a href="./Common_Core_LookupTable.html">vtkLookupTable</a><br><a href="./Rendering_Core_ColorTransferFunction.html">vtkColorTransferFunction</a> </p>
-<h2 id="VectorComponent" class="article-heading"><a href="#VectorComponent" class="headerlink" title="VectorComponent"></a>VectorComponent<a class="article-anchor" href="#VectorComponent" aria-hidden="true"></a></h2><p>Select which component of a vector to map to colors.</p>
-<h2 id="VectorSize" class="article-heading"><a href="#VectorSize" class="headerlink" title="VectorSize"></a>VectorSize<a class="article-anchor" href="#VectorSize" aria-hidden="true"></a></h2><p>When mapping vectors, consider only the number of components selected<br>by VectorSize to be part of the vector, and ignore any other<br>components. Set to -1 to map all components. If this is not set<br>to -1, then you can use SetVectorComponent to set which scalar<br>component will be the first component in the vector to be mapped.</p>
-<h1 id="Source" class="article-heading"><a href="#Source" class="headerlink" title="Source"></a>Source<a class="article-anchor" href="#Source" aria-hidden="true"></a></h1><figure class="highlight js"><figcaption><span>Constants.js</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> VectorMode = &#123;</span><br><span class="line">  <span class="attr">MAGNITUDE</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">COMPONENT</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">RGBCOLORS</span>: <span class="number">2</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ScalarMappingTarget = &#123;</span><br><span class="line">  <span class="attr">LUMINANCE</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">LUMINANCE_ALPHA</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">RGB</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="attr">RGBA</span>: <span class="number">4</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  VectorMode,</span><br><span class="line">  ScalarMappingTarget,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+                <h2 id="Introduction" class="article-heading"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction<a class="article-anchor" href="#Introduction" aria-hidden="true"></a></h2><p>vtkScalarsToColors is a general-purpose base class for objects that convert<br>scalars to colors. This include vtkLookupTable classes and color transfer<br>functions. By itself, this class will simply rescale the scalars.</p>
+<p>The scalar-to-color mapping can be augmented with an additional uniform alpha<br>blend. This is used, for example, to blend a vtkActor’s opacity with the<br>lookup table values.</p>
+<p>Specific scalar values may be annotated with text strings that will be<br>included in color legends using <code>setAnnotations</code>, <code>setAnnotation</code>,<br><code>getNumberOfAnnotatedValues</code>, <code>getAnnotatedValue</code>, <code>getAnnotation</code>,<br><code>removeAnnotation</code>, and <code>resetAnnotations</code>.</p>
+<p>This class also has a method for indicating that the set of annotated values<br>form a categorical color map; by setting IndexedLookup to true, you indicate<br>that the annotated values are the only valid values for which entries in the<br>color table should be returned. In this mode, subclasses should then assign<br>colors to annotated values by taking the modulus of an annotated value’s<br>index in the list of annotations with the number of colors in the table.</p>
+<h2 id="Methods" class="article-heading"><a href="#Methods" class="headerlink" title="Methods"></a>Methods<a class="article-anchor" href="#Methods" aria-hidden="true"></a></h2><h3 id="build" class="article-heading"><a href="#build" class="headerlink" title="build"></a>build<a class="article-anchor" href="#build" aria-hidden="true"></a></h3><h3 id="checkForAnnotatedValue" class="article-heading"><a href="#checkForAnnotatedValue" class="headerlink" title="checkForAnnotatedValue"></a>checkForAnnotatedValue<a class="article-anchor" href="#checkForAnnotatedValue" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="convertToRGBA" class="article-heading"><a href="#convertToRGBA" class="headerlink" title="convertToRGBA"></a>convertToRGBA<a class="article-anchor" href="#convertToRGBA" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>colors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>numComp</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>numTuples</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="extend" class="article-heading"><a href="#extend" class="headerlink" title="extend"></a>extend<a class="article-anchor" href="#extend" aria-hidden="true"></a></h3><p>Method used to decorate a given object (publicAPI+model) with vtkScalarsToColors characteristics.</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>publicAPI</code></td>
+<td></td>
+<td>Yes</td>
+<td>object on which methods will be bounds (public)</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td></td>
+<td>Yes</td>
+<td>object on which data structure will be bounds (protected)</td>
+</tr>
+<tr>
+<td><code>initialValues</code></td>
+<td>IScalarsToColorsInitialValues</td>
+<td>No</td>
+<td>(default: {})</td>
+</tr>
+</tbody></table>
+<h3 id="getAlpha" class="article-heading"><a href="#getAlpha" class="headerlink" title="getAlpha"></a>getAlpha<a class="article-anchor" href="#getAlpha" aria-hidden="true"></a></h3><h3 id="getAnnotatedValue" class="article-heading"><a href="#getAnnotatedValue" class="headerlink" title="getAnnotatedValue"></a>getAnnotatedValue<a class="article-anchor" href="#getAnnotatedValue" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>idx</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="getAnnotatedValueIndex" class="article-heading"><a href="#getAnnotatedValueIndex" class="headerlink" title="getAnnotatedValueIndex"></a>getAnnotatedValueIndex<a class="article-anchor" href="#getAnnotatedValueIndex" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>val</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="getAnnotatedValueIndexInternal" class="article-heading"><a href="#getAnnotatedValueIndexInternal" class="headerlink" title="getAnnotatedValueIndexInternal"></a>getAnnotatedValueIndexInternal<a class="article-anchor" href="#getAnnotatedValueIndexInternal" aria-hidden="true"></a></h3><p>An unsafe version of vtkScalarsToColors::CheckForAnnotatedValue for<br>internal use (no pointer checks performed)</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="getAnnotation" class="article-heading"><a href="#getAnnotation" class="headerlink" title="getAnnotation"></a>getAnnotation<a class="article-anchor" href="#getAnnotation" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>idx</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="getAnnotationColor" class="article-heading"><a href="#getAnnotationColor" class="headerlink" title="getAnnotationColor"></a>getAnnotationColor<a class="article-anchor" href="#getAnnotationColor" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>val</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>rgba</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="getIndexedColor" class="article-heading"><a href="#getIndexedColor" class="headerlink" title="getIndexedColor"></a>getIndexedColor<a class="article-anchor" href="#getIndexedColor" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>val</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>rgba</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="getIndexedLookup" class="article-heading"><a href="#getIndexedLookup" class="headerlink" title="getIndexedLookup"></a>getIndexedLookup<a class="article-anchor" href="#getIndexedLookup" aria-hidden="true"></a></h3><h3 id="getMappingRange" class="article-heading"><a href="#getMappingRange" class="headerlink" title="getMappingRange"></a>getMappingRange<a class="article-anchor" href="#getMappingRange" aria-hidden="true"></a></h3><h3 id="getMappingRangeByReference" class="article-heading"><a href="#getMappingRangeByReference" class="headerlink" title="getMappingRangeByReference"></a>getMappingRangeByReference<a class="article-anchor" href="#getMappingRangeByReference" aria-hidden="true"></a></h3><h3 id="getNumberOfAnnotatedValues" class="article-heading"><a href="#getNumberOfAnnotatedValues" class="headerlink" title="getNumberOfAnnotatedValues"></a>getNumberOfAnnotatedValues<a class="article-anchor" href="#getNumberOfAnnotatedValues" aria-hidden="true"></a></h3><h3 id="getNumberOfAvailableColors" class="article-heading"><a href="#getNumberOfAvailableColors" class="headerlink" title="getNumberOfAvailableColors"></a>getNumberOfAvailableColors<a class="article-anchor" href="#getNumberOfAvailableColors" aria-hidden="true"></a></h3><h3 id="getRange" class="article-heading"><a href="#getRange" class="headerlink" title="getRange"></a>getRange<a class="article-anchor" href="#getRange" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>min</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="getVectorComponent" class="article-heading"><a href="#getVectorComponent" class="headerlink" title="getVectorComponent"></a>getVectorComponent<a class="article-anchor" href="#getVectorComponent" aria-hidden="true"></a></h3><p>Get which component of a vector to map to colors.</p>
+<h3 id="getVectorMode" class="article-heading"><a href="#getVectorMode" class="headerlink" title="getVectorMode"></a>getVectorMode<a class="article-anchor" href="#getVectorMode" aria-hidden="true"></a></h3><h3 id="getVectorSize" class="article-heading"><a href="#getVectorSize" class="headerlink" title="getVectorSize"></a>getVectorSize<a class="article-anchor" href="#getVectorSize" aria-hidden="true"></a></h3><h3 id="isOpaque" class="article-heading"><a href="#isOpaque" class="headerlink" title="isOpaque"></a>isOpaque<a class="article-anchor" href="#isOpaque" aria-hidden="true"></a></h3><h3 id="luminanceAlphaToRGBA" class="article-heading"><a href="#luminanceAlphaToRGBA" class="headerlink" title="luminanceAlphaToRGBA"></a>luminanceAlphaToRGBA<a class="article-anchor" href="#luminanceAlphaToRGBA" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>newColors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>colors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>convtFun</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="luminanceToRGBA" class="article-heading"><a href="#luminanceToRGBA" class="headerlink" title="luminanceToRGBA"></a>luminanceToRGBA<a class="article-anchor" href="#luminanceToRGBA" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>newColors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>colors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>convtFun</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="mapScalars" class="article-heading"><a href="#mapScalars" class="headerlink" title="mapScalars"></a>mapScalars<a class="article-anchor" href="#mapScalars" aria-hidden="true"></a></h3><p>Internal methods that map a data array into a 4-component, unsigned char<br>RGBA array. The color mode determines the behavior of mapping. If<br>ColorMode.DEFAULT is set, then unsigned char data arrays are treated as<br>colors (and converted to RGBA if necessary); If ColorMode.DIRECT_SCALARS<br>is set, then all arrays are treated as colors (integer types are clamped<br>in the range 0-255, floating point arrays are clamped in the range<br>0.0-1.0. Note ‘char’ does not have enough values to represent a color so<br>mapping this type is considered an error); otherwise, the data is mapped<br>through this instance of ScalarsToColors. The component argument is used<br>for data arrays with more than one component; it indicates which<br>component to use to do the blending.  When the component argument is -1,<br>then the this object uses its own selected technique to change a vector<br>into a scalar to map.</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>scalars</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>colorMode</code></td>
+<td>ColorMode</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>componentIn</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="mapVectorsThroughTable" class="article-heading"><a href="#mapVectorsThroughTable" class="headerlink" title="mapVectorsThroughTable"></a>mapVectorsThroughTable<a class="article-anchor" href="#mapVectorsThroughTable" aria-hidden="true"></a></h3><p>Map a set of vector values through the table</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>input</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>outputFormat</code></td>
+<td>ScalarMappingTarget</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>vectorComponentIn</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>vectorSizeIn</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="mapVectorsToMagnitude" class="article-heading"><a href="#mapVectorsToMagnitude" class="headerlink" title="mapVectorsToMagnitude"></a>mapVectorsToMagnitude<a class="article-anchor" href="#mapVectorsToMagnitude" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>input</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>compsToUse</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="newInstance" class="article-heading"><a href="#newInstance" class="headerlink" title="newInstance"></a>newInstance<a class="article-anchor" href="#newInstance" aria-hidden="true"></a></h3><p>Method used to create a new instance of vtkScalarsToColors</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>initialValues</code></td>
+<td>IScalarsToColorsInitialValues</td>
+<td>No</td>
+<td>for pre-setting some of its content</td>
+</tr>
+</tbody></table>
+<h3 id="rGBAToRGBA" class="article-heading"><a href="#rGBAToRGBA" class="headerlink" title="rGBAToRGBA"></a>rGBAToRGBA<a class="article-anchor" href="#rGBAToRGBA" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>newColors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>colors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>convtFun</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="rGBToRGBA" class="article-heading"><a href="#rGBToRGBA" class="headerlink" title="rGBToRGBA"></a>rGBToRGBA<a class="article-anchor" href="#rGBToRGBA" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>newColors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>colors</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>convtFun</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="removeAnnotation" class="article-heading"><a href="#removeAnnotation" class="headerlink" title="removeAnnotation"></a>removeAnnotation<a class="article-anchor" href="#removeAnnotation" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="resetAnnotations" class="article-heading"><a href="#resetAnnotations" class="headerlink" title="resetAnnotations"></a>resetAnnotations<a class="article-anchor" href="#resetAnnotations" aria-hidden="true"></a></h3><h3 id="setAlpha" class="article-heading"><a href="#setAlpha" class="headerlink" title="setAlpha"></a>setAlpha<a class="article-anchor" href="#setAlpha" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>alpha</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setAnnotation" class="article-heading"><a href="#setAnnotation" class="headerlink" title="setAnnotation"></a>setAnnotation<a class="article-anchor" href="#setAnnotation" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>value</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>annotation</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setAnnotations" class="article-heading"><a href="#setAnnotations" class="headerlink" title="setAnnotations"></a>setAnnotations<a class="article-anchor" href="#setAnnotations" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>values</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>annotations</code></td>
+<td></td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setIndexedLookup" class="article-heading"><a href="#setIndexedLookup" class="headerlink" title="setIndexedLookup"></a>setIndexedLookup<a class="article-anchor" href="#setIndexedLookup" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>indexedLookup</code></td>
+<td>Boolean</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setMappingRange" class="article-heading"><a href="#setMappingRange" class="headerlink" title="setMappingRange"></a>setMappingRange<a class="article-anchor" href="#setMappingRange" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>min</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setMappingRange-1" class="article-heading"><a href="#setMappingRange-1" class="headerlink" title="setMappingRange"></a>setMappingRange<a class="article-anchor" href="#setMappingRange-1" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mappingRange</code></td>
+<td>Range</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setMappingRangeFrom" class="article-heading"><a href="#setMappingRangeFrom" class="headerlink" title="setMappingRangeFrom"></a>setMappingRangeFrom<a class="article-anchor" href="#setMappingRangeFrom" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>mappingRange</code></td>
+<td>Range</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setRange" class="article-heading"><a href="#setRange" class="headerlink" title="setRange"></a>setRange<a class="article-anchor" href="#setRange" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>min</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td><code>max</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setVectorComponent" class="article-heading"><a href="#setVectorComponent" class="headerlink" title="setVectorComponent"></a>setVectorComponent<a class="article-anchor" href="#setVectorComponent" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vectorComponent</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="setVectorModeToComponent" class="article-heading"><a href="#setVectorModeToComponent" class="headerlink" title="setVectorModeToComponent"></a>setVectorModeToComponent<a class="article-anchor" href="#setVectorModeToComponent" aria-hidden="true"></a></h3><h3 id="setVectorModeToMagnitude" class="article-heading"><a href="#setVectorModeToMagnitude" class="headerlink" title="setVectorModeToMagnitude"></a>setVectorModeToMagnitude<a class="article-anchor" href="#setVectorModeToMagnitude" aria-hidden="true"></a></h3><h3 id="setVectorModeToRGBColors" class="article-heading"><a href="#setVectorModeToRGBColors" class="headerlink" title="setVectorModeToRGBColors"></a>setVectorModeToRGBColors<a class="article-anchor" href="#setVectorModeToRGBColors" aria-hidden="true"></a></h3><p>When mapping vectors, consider only the number of components selected by<br><code>vectorSize</code> to be part of the vector, and ignore any other components. Set<br>to -1 to map all components. If this is not set to -1, then you can use<br><code>setVectorComponent</code> to set which scalar component will be the first<br>component in the vector to be mapped.</p>
+<h3 id="setVectorSize" class="article-heading"><a href="#setVectorSize" class="headerlink" title="setVectorSize"></a>setVectorSize<a class="article-anchor" href="#setVectorSize" aria-hidden="true"></a></h3><table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vectorSize</code></td>
+<td>Number</td>
+<td>Yes</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="updateAnnotatedValueMap" class="article-heading"><a href="#updateAnnotatedValueMap" class="headerlink" title="updateAnnotatedValueMap"></a>updateAnnotatedValueMap<a class="article-anchor" href="#updateAnnotatedValueMap" aria-hidden="true"></a></h3><h3 id="usingLogScale" class="article-heading"><a href="#usingLogScale" class="headerlink" title="usingLogScale"></a>usingLogScale<a class="article-anchor" href="#usingLogScale" aria-hidden="true"></a></h3><h1 id="Source" class="article-heading"><a href="#Source" class="headerlink" title="Source"></a>Source<a class="article-anchor" href="#Source" aria-hidden="true"></a></h1><figure class="highlight js"><figcaption><span>Constants.js</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> VectorMode = &#123;</span><br><span class="line">  <span class="attr">MAGNITUDE</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">COMPONENT</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">RGBCOLORS</span>: <span class="number">2</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ScalarMappingTarget = &#123;</span><br><span class="line">  <span class="attr">LUMINANCE</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">LUMINANCE_ALPHA</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">RGB</span>: <span class="number">3</span>,</span><br><span class="line">  <span class="attr">RGBA</span>: <span class="number">4</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  VectorMode,</span><br><span class="line">  ScalarMappingTarget,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><figcaption><span>index.d.ts</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; vtkObject &#125; <span class="keyword">from</span> <span class="string">&quot;../../../interfaces&quot;</span> ;</span><br><span class="line"><span class="keyword">import</span> &#123; ColorMode &#125; <span class="keyword">from</span> <span class="string">&quot;../../../Rendering/Core/Mapper&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Range &#125; <span class="keyword">from</span> <span class="string">&quot;../../../types&quot;</span> ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> enum VectorMode &#123;</span><br><span class="line">  MAGNITUDE,</span><br><span class="line">  COMPONENT,</span><br><span class="line">  RGBCOLORS</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> enum ScalarMappingTarget &#123;</span><br><span class="line">  LUMINANCE,</span><br><span class="line">  LUMINANCE_ALPHA,</span><br><span class="line">  RGB,</span><br><span class="line">  RGBA</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">interface IScalarsToColorsInitialValues &#123;</span><br><span class="line">	alpha?: number;</span><br><span class="line">	vectorComponent?: number;</span><br><span class="line">	vectorSize?: number;</span><br><span class="line">	indexedLookup?: boolean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> interface vtkScalarsToColors <span class="keyword">extends</span> vtkObject &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	build(): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>value </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	checkForAnnotatedValue(value: any): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>colors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>numComp </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>numTuples </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	convertToRGBA(colors: any, <span class="attr">numComp</span>: number, <span class="attr">numTuples</span>: number): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getAlpha(): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>idx </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getAnnotatedValue(idx: number): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>val </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getAnnotatedValueIndex(val: any): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * An unsafe version of vtkScalarsToColors::CheckForAnnotatedValue for</span></span><br><span class="line"><span class="comment">	 * internal use (no pointer checks performed)</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>value </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getAnnotatedValueIndexInternal(value: any): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>idx </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getAnnotation(idx: number): string;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>val </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>rgba </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getAnnotationColor(val: any, <span class="attr">rgba</span>: any): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>val </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>rgba </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getIndexedColor(val: number, <span class="attr">rgba</span>: any): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getIndexedLookup(): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getMappingRange(): Range;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getMappingRangeByReference(): Range;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getNumberOfAnnotatedValues(): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getNumberOfAvailableColors(): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>min </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>max </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getRange(min: number, <span class="attr">max</span>: number): Range;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Get which component of a vector to map to colors.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getVectorComponent(): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getVectorMode(): VectorMode;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	getVectorSize(): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	isOpaque(): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>newColors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>colors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>alpha </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>convtFun </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	luminanceAlphaToRGBA(newColors: any, <span class="attr">colors</span>: any, <span class="attr">alpha</span>: number, <span class="attr">convtFun</span>: any): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>newColors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>colors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>alpha </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>convtFun </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	luminanceToRGBA(newColors: any, <span class="attr">colors</span>: any, <span class="attr">alpha</span>: number, <span class="attr">convtFun</span>: any): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Internal methods that map a data array into a 4-component, unsigned char</span></span><br><span class="line"><span class="comment">	 * RGBA array. The color mode determines the behavior of mapping. If</span></span><br><span class="line"><span class="comment">	 * ColorMode.DEFAULT is set, then unsigned char data arrays are treated as</span></span><br><span class="line"><span class="comment">	 * colors (and converted to RGBA if necessary); If ColorMode.DIRECT_SCALARS</span></span><br><span class="line"><span class="comment">	 * is set, then all arrays are treated as colors (integer types are clamped</span></span><br><span class="line"><span class="comment">	 * in the range 0-255, floating point arrays are clamped in the range</span></span><br><span class="line"><span class="comment">	 * 0.0-1.0. Note &#x27;char&#x27; does not have enough values to represent a color so</span></span><br><span class="line"><span class="comment">	 * mapping this type is considered an error); otherwise, the data is mapped</span></span><br><span class="line"><span class="comment">	 * through this instance of ScalarsToColors. The component argument is used</span></span><br><span class="line"><span class="comment">	 * for data arrays with more than one component; it indicates which</span></span><br><span class="line"><span class="comment">	 * component to use to do the blending.  When the component argument is -1,</span></span><br><span class="line"><span class="comment">	 * then the this object uses its own selected technique to change a vector</span></span><br><span class="line"><span class="comment">	 * into a scalar to map.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>scalars </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;ColorMode&#125;</span> </span>colorMode </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>componentIn </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	mapScalars(scalars: any, <span class="attr">colorMode</span>: ColorMode, <span class="attr">componentIn</span>: number): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Map a set of vector values through the table</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>input </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>output </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;ScalarMappingTarget&#125;</span> </span>outputFormat </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>vectorComponentIn </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>vectorSizeIn </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	mapVectorsThroughTable(input: any, <span class="attr">output</span>: any, <span class="attr">outputFormat</span>: ScalarMappingTarget, <span class="attr">vectorComponentIn</span>: number, <span class="attr">vectorSizeIn</span>: number): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>input </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>output </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>compsToUse </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	mapVectorsToMagnitude(input: any, <span class="attr">output</span>: any, <span class="attr">compsToUse</span>: number): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>newColors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>colors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>alpha </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>convtFun </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	rGBAToRGBA(newColors: any, <span class="attr">colors</span>: any, <span class="attr">alpha</span>: number, <span class="attr">convtFun</span>: any): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>newColors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>colors </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>alpha </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>convtFun </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	rGBToRGBA(newColors: any, <span class="attr">colors</span>: any, <span class="attr">alpha</span>: number, <span class="attr">convtFun</span>: any): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>value </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	removeAnnotation(value: any): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	resetAnnotations(): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>alpha </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setAlpha(alpha: number): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>value </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>annotation </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setAnnotation(value: any, <span class="attr">annotation</span>: any): number;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>values </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param </span>annotations </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setAnnotations(values: any, <span class="attr">annotations</span>: any): <span class="keyword">void</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Boolean&#125;</span> </span>indexedLookup </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setIndexedLookup(indexedLookup: boolean): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Range&#125;</span> </span>mappingRange </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setMappingRange(mappingRange: Range): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>min </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>max </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setMappingRange(min: number, <span class="attr">max</span>: number): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Range&#125;</span> </span>mappingRange </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setMappingRangeFrom(mappingRange: Range): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>min </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>max </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setRange(min: number, <span class="attr">max</span>: number): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>vectorComponent </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setVectorComponent(vectorComponent:number): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setVectorModeToMagnitude(): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setVectorModeToComponent(): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * When mapping vectors, consider only the number of components selected by</span></span><br><span class="line"><span class="comment">	 * `vectorSize` to be part of the vector, and ignore any other components. Set</span></span><br><span class="line"><span class="comment">	 * to -1 to map all components. If this is not set to -1, then you can use</span></span><br><span class="line"><span class="comment">	 * `setVectorComponent` to set which scalar component will be the first</span></span><br><span class="line"><span class="comment">	 * component in the vector to be mapped.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setVectorModeToRGBColors(): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param <span class="type">&#123;Number&#125;</span> </span>vectorSize </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	setVectorSize(vectorSize: number): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	updateAnnotatedValueMap(): boolean;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * </span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	usingLogScale(): boolean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Method used to decorate a given object (publicAPI+model) with vtkScalarsToColors characteristics.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>publicAPI object on which methods will be bounds (public)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param </span>model object on which data structure will be bounds (protected)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;IScalarsToColorsInitialValues&#125;</span> </span>[initialValues] (default: &#123;&#125;)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">extend</span>(<span class="params">publicAPI: object, model: object, initialValues?: IScalarsToColorsInitialValues</span>): <span class="title">void</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Method used to create a new instance of vtkScalarsToColors</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;IScalarsToColorsInitialValues&#125;</span> </span>[initialValues] for pre-setting some of its content</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">newInstance</span>(<span class="params">initialValues?: IScalarsToColorsInitialValues</span>): <span class="title">vtkScalarsToColors</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * vtkScalarsToColors is a general-purpose base class for objects that convert</span></span><br><span class="line"><span class="comment"> * scalars to colors. This include vtkLookupTable classes and color transfer</span></span><br><span class="line"><span class="comment"> * functions. By itself, this class will simply rescale the scalars.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * The scalar-to-color mapping can be augmented with an additional uniform alpha</span></span><br><span class="line"><span class="comment"> * blend. This is used, for example, to blend a vtkActor&#x27;s opacity with the</span></span><br><span class="line"><span class="comment"> * lookup table values.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Specific scalar values may be annotated with text strings that will be</span></span><br><span class="line"><span class="comment"> * included in color legends using `setAnnotations`, `setAnnotation`,</span></span><br><span class="line"><span class="comment"> * `getNumberOfAnnotatedValues`, `getAnnotatedValue`, `getAnnotation`,</span></span><br><span class="line"><span class="comment"> * `removeAnnotation`, and `resetAnnotations`.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This class also has a method for indicating that the set of annotated values</span></span><br><span class="line"><span class="comment"> * form a categorical color map; by setting IndexedLookup to true, you indicate</span></span><br><span class="line"><span class="comment"> * that the annotated values are the only valid values for which entries in the</span></span><br><span class="line"><span class="comment"> * color table should be returned. In this mode, subclasses should then assign</span></span><br><span class="line"><span class="comment"> * colors to annotated values by taking the modulus of an annotated value&#x27;s</span></span><br><span class="line"><span class="comment"> * index in the list of annotations with the number of colors in the table.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> declare <span class="keyword">const</span> vtkScalarsToColors: &#123;</span><br><span class="line">	<span class="attr">newInstance</span>: <span class="keyword">typeof</span> newInstance;</span><br><span class="line">	extend: <span class="keyword">typeof</span> extend;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> vtkScalarsToColors;</span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><figcaption><span>index.js</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> macro <span class="keyword">from</span> <span class="string">&#x27;vtk.js/Sources/macro&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> vtkDataArray <span class="keyword">from</span> <span class="string">&#x27;vtk.js/Sources/Common/Core/DataArray&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Constants <span class="keyword">from</span> <span class="string">&#x27;vtk.js/Sources/Common/Core/ScalarsToColors/Constants&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> vtkMapper <span class="keyword">from</span> <span class="string">&#x27;vtk.js/Sources/Rendering/Core/Mapper/Constants&#x27;</span>; <span class="comment">// Need to go inside Constants otherwise dependency loop</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; ScalarMappingTarget, VectorMode &#125; = Constants;</span><br><span class="line"><span class="keyword">const</span> &#123; VtkDataTypes &#125; = vtkDataArray;</span><br><span class="line"><span class="keyword">const</span> &#123; ColorMode &#125; = vtkMapper;</span><br><span class="line"><span class="keyword">const</span> &#123; vtkErrorMacro &#125; = macro;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">// Global methods</span></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Add module-level functions or api that you want to expose statically via</span></span><br><span class="line"><span class="comment">// the next section...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">// Static API</span></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">intColorToUChar</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">floatColorToUChar</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Math</span>.floor(c * <span class="number">255.0</span> + <span class="number">0.5</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">// vtkScalarsToColors methods</span></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">vtkScalarsToColors</span>(<span class="params">publicAPI, model</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Set our className</span></span><br><span class="line">  model.classHierarchy.push(<span class="string">&#x27;vtkScalarsToColors&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  publicAPI.setVectorModeToMagnitude = <span class="function">() =&gt;</span></span><br><span class="line">    publicAPI.setVectorMode(VectorMode.MAGNITUDE);</span><br><span class="line">  publicAPI.setVectorModeToComponent = <span class="function">() =&gt;</span></span><br><span class="line">    publicAPI.setVectorMode(VectorMode.COMPONENT);</span><br><span class="line">  publicAPI.setVectorModeToRGBColors = <span class="function">() =&gt;</span></span><br><span class="line">    publicAPI.setVectorMode(VectorMode.RGBCOLORS);</span><br><span class="line"></span><br><span class="line">  publicAPI.build = <span class="function">() =&gt;</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  publicAPI.isOpaque = <span class="function">() =&gt;</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.setAnnotations = <span class="function">(<span class="params">values, annotations</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> ((values &amp;&amp; !annotations) || (!values &amp;&amp; annotations)) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (values &amp;&amp; annotations &amp;&amp; values.length !== annotations.length) &#123;</span><br><span class="line">      vtkErrorMacro(</span><br><span class="line">        <span class="string">&#x27;Values and annotations do not have the same number of tuples so ignoring&#x27;</span></span><br><span class="line">      );</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    model.annotationArray = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (annotations &amp;&amp; values) &#123;</span><br><span class="line">      <span class="keyword">const</span> num = annotations.length;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; num; i++) &#123;</span><br><span class="line">        model.annotationArray.push(&#123;</span><br><span class="line">          <span class="attr">value</span>: values[i],</span><br><span class="line">          <span class="attr">annotation</span>: <span class="built_in">String</span>(annotations[i]),</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    publicAPI.updateAnnotatedValueMap();</span><br><span class="line">    publicAPI.modified();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.setAnnotation = <span class="function">(<span class="params">value, annotation</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> i = publicAPI.checkForAnnotatedValue(value);</span><br><span class="line">    <span class="keyword">let</span> modified = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (i &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (model.annotationArray[i].annotation !== annotation) &#123;</span><br><span class="line">        model.annotationArray[i].annotation = annotation;</span><br><span class="line">        modified = <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      model.annotationArray.push(&#123; value, annotation &#125;);</span><br><span class="line">      i = model.annotationArray.length - <span class="number">1</span>;</span><br><span class="line">      modified = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (modified) &#123;</span><br><span class="line">      publicAPI.updateAnnotatedValueMap();</span><br><span class="line">      publicAPI.modified();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.getNumberOfAnnotatedValues = <span class="function">() =&gt;</span> model.annotationArray.length;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.getAnnotatedValue = <span class="function">(<span class="params">idx</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (idx &lt; <span class="number">0</span> || idx &gt;= model.annotationArray.length) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> model.annotationArray[idx].value;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.getAnnotation = <span class="function">(<span class="params">idx</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (model.annotationArray[idx] === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> model.annotationArray[idx].annotation;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.getAnnotatedValueIndex = <span class="function">(<span class="params">val</span>) =&gt;</span></span><br><span class="line">    model.annotationArray.length ? publicAPI.checkForAnnotatedValue(val) : -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.removeAnnotation = <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> i = publicAPI.checkForAnnotatedValue(value);</span><br><span class="line">    <span class="keyword">const</span> needToRemove = i &gt;= <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (needToRemove) &#123;</span><br><span class="line">      model.annotationArray.splice(i, <span class="number">1</span>);</span><br><span class="line">      publicAPI.updateAnnotatedValueMap();</span><br><span class="line">      publicAPI.modified();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> needToRemove;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.resetAnnotations = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    model.annotationArray = [];</span><br><span class="line">    model.annotatedValueMap = [];</span><br><span class="line">    publicAPI.modified();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.getAnnotationColor = <span class="function">(<span class="params">val, rgba</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (model.indexedLookup) &#123;</span><br><span class="line">      <span class="keyword">const</span> i = publicAPI.getAnnotatedValueIndex(val);</span><br><span class="line">      publicAPI.getIndexedColor(i, rgba);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      publicAPI.getColor(<span class="built_in">parseFloat</span>(val), rgba);</span><br><span class="line">      rgba[<span class="number">3</span>] = <span class="number">1.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.checkForAnnotatedValue = <span class="function">(<span class="params">value</span>) =&gt;</span></span><br><span class="line">    publicAPI.getAnnotatedValueIndexInternal(value);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  <span class="comment">// An unsafe version of vtkScalarsToColors::CheckForAnnotatedValue for</span></span><br><span class="line">  <span class="comment">// internal use (no pointer checks performed)</span></span><br><span class="line">  publicAPI.getAnnotatedValueIndexInternal = <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (model.annotatedValueMap[value] !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> na = model.annotationArray.length;</span><br><span class="line">      <span class="keyword">return</span> model.annotatedValueMap[value] % na;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Treat as a NaN</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.getIndexedColor = <span class="function">(<span class="params">val, rgba</span>) =&gt;</span> &#123;</span><br><span class="line">    rgba[<span class="number">0</span>] = <span class="number">0.0</span>;</span><br><span class="line">    rgba[<span class="number">1</span>] = <span class="number">0.0</span>;</span><br><span class="line">    rgba[<span class="number">2</span>] = <span class="number">0.0</span>;</span><br><span class="line">    rgba[<span class="number">3</span>] = <span class="number">0.0</span>;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.updateAnnotatedValueMap = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    model.annotatedValueMap = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> na = model.annotationArray.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; na; i++) &#123;</span><br><span class="line">      model.annotatedValueMap[model.annotationArray[i].value] = i;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Description:</span></span><br><span class="line">  <span class="comment">// Internal methods that map a data array into a 4-component,</span></span><br><span class="line">  <span class="comment">// unsigned char RGBA array. The color mode determines the behavior</span></span><br><span class="line">  <span class="comment">// of mapping. If ColorMode.DEFAULT is set, then unsigned char</span></span><br><span class="line">  <span class="comment">// data arrays are treated as colors (and converted to RGBA if</span></span><br><span class="line">  <span class="comment">// necessary); If ColorMode.DIRECT_SCALARS is set, then all arrays</span></span><br><span class="line">  <span class="comment">// are treated as colors (integer types are clamped in the range 0-255,</span></span><br><span class="line">  <span class="comment">// floating point arrays are clamped in the range 0.0-1.0. Note &#x27;char&#x27; does</span></span><br><span class="line">  <span class="comment">// not have enough values to represent a color so mapping this type is</span></span><br><span class="line">  <span class="comment">// considered an error);</span></span><br><span class="line">  <span class="comment">// otherwise, the data is mapped through this instance</span></span><br><span class="line">  <span class="comment">// of ScalarsToColors. The component argument is used for data</span></span><br><span class="line">  <span class="comment">// arrays with more than one component; it indicates which component</span></span><br><span class="line">  <span class="comment">// to use to do the blending.  When the component argument is -1,</span></span><br><span class="line">  <span class="comment">// then the this object uses its own selected technique to change a</span></span><br><span class="line">  <span class="comment">// vector into a scalar to map.</span></span><br><span class="line">  publicAPI.mapScalars = <span class="function">(<span class="params">scalars, colorMode, componentIn</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> numberOfComponents = scalars.getNumberOfComponents();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> newColors = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// map scalars through lookup table only if needed</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      (colorMode === ColorMode.DEFAULT &amp;&amp;</span><br><span class="line">        scalars.getDataType() === VtkDataTypes.UNSIGNED_CHAR) ||</span><br><span class="line">      (colorMode === ColorMode.DIRECT_SCALARS &amp;&amp; scalars)</span><br><span class="line">    ) &#123;</span><br><span class="line">      newColors = publicAPI.convertToRGBA(</span><br><span class="line">        scalars,</span><br><span class="line">        numberOfComponents,</span><br><span class="line">        scalars.getNumberOfTuples()</span><br><span class="line">      );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> newscalars = &#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;vtkDataArray&#x27;</span>,</span><br><span class="line">        <span class="attr">name</span>: <span class="string">&#x27;temp&#x27;</span>,</span><br><span class="line">        <span class="attr">numberOfComponents</span>: <span class="number">4</span>,</span><br><span class="line">        <span class="attr">dataType</span>: VtkDataTypes.UNSIGNED_CHAR,</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> s = macro.newTypedArray(</span><br><span class="line">        newscalars.dataType,</span><br><span class="line">        <span class="number">4</span> * scalars.getNumberOfTuples()</span><br><span class="line">      );</span><br><span class="line">      newscalars.values = s;</span><br><span class="line">      newscalars.size = s.length;</span><br><span class="line">      newColors = vtkDataArray.newInstance(newscalars);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> component = componentIn;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// If mapper did not specify a component, use the VectorMode</span></span><br><span class="line">      <span class="keyword">if</span> (component &lt; <span class="number">0</span> &amp;&amp; numberOfComponents &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        publicAPI.mapVectorsThroughTable(</span><br><span class="line">          scalars,</span><br><span class="line">          newColors,</span><br><span class="line">          ScalarMappingTarget.RGBA,</span><br><span class="line">          -<span class="number">1</span>,</span><br><span class="line">          -<span class="number">1</span></span><br><span class="line">        );</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (component &lt; <span class="number">0</span>) &#123;</span><br><span class="line">          component = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (component &gt;= numberOfComponents) &#123;</span><br><span class="line">          component = numberOfComponents - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Map the scalars to colors</span></span><br><span class="line">        publicAPI.mapScalarsThroughTable(</span><br><span class="line">          scalars,</span><br><span class="line">          newColors,</span><br><span class="line">          ScalarMappingTarget.RGBA,</span><br><span class="line">          component</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newColors;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  publicAPI.mapVectorsToMagnitude = <span class="function">(<span class="params">input, output, compsToUse</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> length = input.getNumberOfTuples();</span><br><span class="line">    <span class="keyword">const</span> inIncr = input.getNumberOfComponents();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> outputV = output.getData();</span><br><span class="line">    <span class="keyword">const</span> inputV = input.getData();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">      <span class="keyword">let</span> sum = <span class="number">0.0</span>;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; compsToUse; j++) &#123;</span><br><span class="line">        sum += inputV[i * inIncr + j] * inputV[i * inIncr + j];</span><br><span class="line">      &#125;</span><br><span class="line">      outputV[i] = <span class="built_in">Math</span>.sqrt(sum);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  <span class="comment">// Map a set of vector values through the table</span></span><br><span class="line">  publicAPI.mapVectorsThroughTable = <span class="function">(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">    input,</span></span></span><br><span class="line"><span class="params"><span class="function">    output,</span></span></span><br><span class="line"><span class="params"><span class="function">    outputFormat,</span></span></span><br><span class="line"><span class="params"><span class="function">    vectorComponentIn,</span></span></span><br><span class="line"><span class="params"><span class="function">    vectorSizeIn</span></span></span><br><span class="line"><span class="params"><span class="function">  </span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> vectorMode = publicAPI.getVectorMode();</span><br><span class="line">    <span class="keyword">let</span> vectorSize = vectorSizeIn;</span><br><span class="line">    <span class="keyword">let</span> vectorComponent = vectorComponentIn;</span><br><span class="line">    <span class="keyword">const</span> inComponents = input.getNumberOfComponents();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (vectorMode === VectorMode.COMPONENT) &#123;</span><br><span class="line">      <span class="comment">// make sure vectorComponent is within allowed range</span></span><br><span class="line">      <span class="keyword">if</span> (vectorComponent === -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// if set to -1, use default value provided by table</span></span><br><span class="line">        vectorComponent = publicAPI.getVectorComponent();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (vectorComponent &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        vectorComponent = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (vectorComponent &gt;= inComponents) &#123;</span><br><span class="line">        vectorComponent = inComponents - <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// make sure vectorSize is within allowed range</span></span><br><span class="line">      <span class="keyword">if</span> (vectorSize === -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="comment">// if set to -1, use default value provided by table</span></span><br><span class="line">        vectorSize = publicAPI.getVectorSize();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (vectorSize &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        vectorComponent = <span class="number">0</span>;</span><br><span class="line">        vectorSize = inComponents;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (vectorComponent &lt; <span class="number">0</span>) &#123;</span><br><span class="line">          vectorComponent = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (vectorComponent &gt;= inComponents) &#123;</span><br><span class="line">          vectorComponent = inComponents - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (vectorComponent + vectorSize &gt; inComponents) &#123;</span><br><span class="line">          vectorSize = inComponents - vectorComponent;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        vectorMode === VectorMode.MAGNITUDE &amp;&amp;</span><br><span class="line">        (inComponents === <span class="number">1</span> || vectorSize === <span class="number">1</span>)</span><br><span class="line">      ) &#123;</span><br><span class="line">        vectorMode = VectorMode.COMPONENT;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// increment input pointer to the first component to map</span></span><br><span class="line">    <span class="keyword">let</span> inputOffset = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (vectorComponent &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      inputOffset = vectorComponent;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// map according to the current vector mode</span></span><br><span class="line">    <span class="keyword">switch</span> (vectorMode) &#123;</span><br><span class="line">      <span class="keyword">case</span> VectorMode.COMPONENT: &#123;</span><br><span class="line">        publicAPI.mapScalarsThroughTable(</span><br><span class="line">          input,</span><br><span class="line">          output,</span><br><span class="line">          outputFormat,</span><br><span class="line">          inputOffset</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">case</span> VectorMode.MAGNITUDE: &#123;</span><br><span class="line">        <span class="keyword">const</span> magValues = vtkDataArray.newInstance(&#123;</span><br><span class="line">          <span class="attr">numberOfComponents</span>: <span class="number">1</span>,</span><br><span class="line">          <span class="attr">values</span>: <span class="keyword">new</span> <span class="built_in">Float32Array</span>(input.getNumberOfTuples()),</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        publicAPI.mapVectorsToMagnitude(input, magValues, vectorSize);</span><br><span class="line">        publicAPI.mapScalarsThroughTable(magValues, output, outputFormat, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> VectorMode.RGBCOLORS: &#123;</span><br><span class="line">        <span class="comment">// publicAPI.mapColorsToColors(</span></span><br><span class="line">        <span class="comment">//   input, output, inComponents, vectorSize,</span></span><br><span class="line">        <span class="comment">//   outputFormat);</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  publicAPI.luminanceToRGBA = <span class="function">(<span class="params">newColors, colors, alpha, convtFun</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> a = convtFun(alpha);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> values = colors.getData();</span><br><span class="line">    <span class="keyword">const</span> newValues = newColors.getData();</span><br><span class="line">    <span class="keyword">const</span> size = values.length;</span><br><span class="line">    <span class="keyword">const</span> component = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> tuple = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = component; i &lt; size; i += tuple) &#123;</span><br><span class="line">      <span class="keyword">const</span> l = convtFun(values[i]);</span><br><span class="line">      newValues[count * <span class="number">4</span>] = l;</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">1</span>] = l;</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">2</span>] = l;</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">3</span>] = a;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  publicAPI.luminanceAlphaToRGBA = <span class="function">(<span class="params">newColors, colors, alpha, convtFun</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> values = colors.getData();</span><br><span class="line">    <span class="keyword">const</span> newValues = newColors.getData();</span><br><span class="line">    <span class="keyword">const</span> size = values.length;</span><br><span class="line">    <span class="keyword">const</span> component = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> tuple = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = component; i &lt; size; i += tuple) &#123;</span><br><span class="line">      <span class="keyword">const</span> l = convtFun(values[i]);</span><br><span class="line">      newValues[count] = l;</span><br><span class="line">      newValues[count + <span class="number">1</span>] = l;</span><br><span class="line">      newValues[count + <span class="number">2</span>] = l;</span><br><span class="line">      newValues[count + <span class="number">3</span>] = convtFun(values[i + <span class="number">1</span>]) * alpha;</span><br><span class="line">      count += <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  publicAPI.rGBToRGBA = <span class="function">(<span class="params">newColors, colors, alpha, convtFun</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> a = floatColorToUChar(alpha);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> values = colors.getData();</span><br><span class="line">    <span class="keyword">const</span> newValues = newColors.getData();</span><br><span class="line">    <span class="keyword">const</span> size = values.length;</span><br><span class="line">    <span class="keyword">const</span> component = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> tuple = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = component; i &lt; size; i += tuple) &#123;</span><br><span class="line">      newValues[count * <span class="number">4</span>] = convtFun(values[i]);</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">1</span>] = convtFun(values[i + <span class="number">1</span>]);</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">2</span>] = convtFun(values[i + <span class="number">2</span>]);</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">3</span>] = a;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  publicAPI.rGBAToRGBA = <span class="function">(<span class="params">newColors, colors, alpha, convtFun</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> values = colors.getData();</span><br><span class="line">    <span class="keyword">const</span> newValues = newColors.getData();</span><br><span class="line">    <span class="keyword">const</span> size = values.length;</span><br><span class="line">    <span class="keyword">const</span> component = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">const</span> tuple = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = component; i &lt; size; i += tuple) &#123;</span><br><span class="line">      newValues[count * <span class="number">4</span>] = convtFun(values[i]);</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">1</span>] = convtFun(values[i + <span class="number">1</span>]);</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">2</span>] = convtFun(values[i + <span class="number">2</span>]);</span><br><span class="line">      newValues[count * <span class="number">4</span> + <span class="number">3</span>] = convtFun(values[i + <span class="number">3</span>]) * alpha;</span><br><span class="line">      count++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//----------------------------------------------------------------------------</span></span><br><span class="line">  publicAPI.convertToRGBA = <span class="function">(<span class="params">colors, numComp, numTuples</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> &#123; alpha &#125; = model;</span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      numComp === <span class="number">4</span> &amp;&amp;</span><br><span class="line">      alpha &gt;= <span class="number">1.0</span> &amp;&amp;</span><br><span class="line">      colors.getDataType() === VtkDataTypes.UNSIGNED_CHAR</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span> colors;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> newColors = vtkDataArray.newInstance(&#123;</span><br><span class="line">      <span class="attr">numberOfComponents</span>: <span class="number">4</span>,</span><br><span class="line">      <span class="attr">empty</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">size</span>: <span class="number">4</span> * numTuples,</span><br><span class="line">      <span class="attr">dataType</span>: VtkDataTypes.UNSIGNED_CHAR,</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (numTuples &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> newColors;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    alpha = alpha &gt; <span class="number">0</span> ? alpha : <span class="number">0</span>;</span><br><span class="line">    alpha = alpha &lt; <span class="number">1</span> ? alpha : <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> convtFun = intColorToUChar;</span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      colors.getDataType() === VtkDataTypes.FLOAT ||</span><br><span class="line">      colors.getDataType() === VtkDataTypes.DOUBLE</span><br><span class="line">    ) &#123;</span><br><span class="line">      convtFun = floatColorToUChar;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (numComp) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        publicAPI.luminanceToRGBA(newColors, colors, alpha, convtFun);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        publicAPI.luminanceAlphaToRGBA(newColors, colors, convtFun);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        publicAPI.rGBToRGBA(newColors, colors, alpha, convtFun);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        publicAPI.rGBAToRGBA(newColors, colors, alpha, convtFun);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        vtkErrorMacro(<span class="string">&#x27;Cannot convert colors&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> newColors;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  publicAPI.usingLogScale = <span class="function">() =&gt;</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  publicAPI.getNumberOfAvailableColors = <span class="function">() =&gt;</span> <span class="number">256</span> * <span class="number">256</span> * <span class="number">256</span>;</span><br><span class="line"></span><br><span class="line">  publicAPI.setRange = <span class="function">(<span class="params">min, max</span>) =&gt;</span> publicAPI.setMappingRange(min, max);</span><br><span class="line">  publicAPI.getRange = <span class="function">(<span class="params">min, max</span>) =&gt;</span> publicAPI.getMappingRange();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">// Object factory</span></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> DEFAULT_VALUES = &#123;</span><br><span class="line">  <span class="attr">alpha</span>: <span class="number">1.0</span>,</span><br><span class="line">  <span class="attr">vectorComponent</span>: <span class="number">0</span>,</span><br><span class="line">  <span class="attr">vectorSize</span>: -<span class="number">1</span>,</span><br><span class="line">  <span class="attr">vectorMode</span>: VectorMode.COMPONENT,</span><br><span class="line">  <span class="attr">mappingRange</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">annotationArray</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">annotatedValueMap</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">indexedLookup</span>: <span class="literal">false</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">extend</span>(<span class="params">publicAPI, model, initialValues = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">Object</span>.assign(model, DEFAULT_VALUES, initialValues);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Object methods</span></span><br><span class="line">  macro.obj(publicAPI, model);</span><br><span class="line"></span><br><span class="line">  model.mappingRange = [<span class="number">0</span>, <span class="number">255</span>];</span><br><span class="line">  model.annotationArray = [];</span><br><span class="line">  model.annotatedValueMap = [];</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create get-set macros</span></span><br><span class="line">  macro.setGet(publicAPI, model, [</span><br><span class="line">    <span class="string">&#x27;vectorSize&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;vectorComponent&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;vectorMode&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;alpha&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;indexedLookup&#x27;</span>,</span><br><span class="line">  ]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create set macros for array (needs to know size)</span></span><br><span class="line">  macro.setArray(publicAPI, model, [<span class="string">&#x27;mappingRange&#x27;</span>], <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Create get macros for array</span></span><br><span class="line">  macro.getArray(publicAPI, model, [<span class="string">&#x27;mappingRange&#x27;</span>]);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// For more macro methods, see &quot;Sources/macro.js&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Object specific methods</span></span><br><span class="line">  vtkScalarsToColors(publicAPI, model);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> newInstance = macro.newInstance(extend, <span class="string">&#x27;vtkScalarsToColors&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123; newInstance, extend, ...Constants &#125;;</span><br></pre></td></tr></table></figure>
 
               </div>
               <footer class="article-footer">
-                <time class="article-footer-updated" datetime="2021-05-27T18:55:52.147Z" itemprop="dateModified">Last updated: 2021-05-27</time>
+                <time class="article-footer-updated" datetime="2021-05-28T02:10:13.946Z" itemprop="dateModified">Last updated: 2021-05-28</time>
                 <a href="Common_Core_ProgressHandler.html" class="article-footer-prev" title="ProgressHandler"><i class="fa fa-chevron-left"></i><span>Prev</span></a><a href="Common_Core_StringArray.html" class="article-footer-next" title="StringArray"><span>Next</span><i class="fa fa-chevron-right"></i></a>
               </footer>
               
@@ -123,7 +778,7 @@
           <aside id="article-toc" role="navigation">
             <div id="article-toc-inner">
               <strong class="sidebar-title">Contents</strong>
-              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vtkScalarsToColors-Superclass-for-mapping-scalar-values-to-colors"><span class="toc-text">vtkScalarsToColors - Superclass for mapping scalar values to colors</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Description"><span class="toc-text">Description</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#See-Also"><span class="toc-text">See Also</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VectorComponent"><span class="toc-text">VectorComponent</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VectorSize"><span class="toc-text">VectorSize</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Source"><span class="toc-text">Source</span></a>
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Methods"><span class="toc-text">Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#build"><span class="toc-text">build</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#checkForAnnotatedValue"><span class="toc-text">checkForAnnotatedValue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#convertToRGBA"><span class="toc-text">convertToRGBA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#extend"><span class="toc-text">extend</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getAlpha"><span class="toc-text">getAlpha</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getAnnotatedValue"><span class="toc-text">getAnnotatedValue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getAnnotatedValueIndex"><span class="toc-text">getAnnotatedValueIndex</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getAnnotatedValueIndexInternal"><span class="toc-text">getAnnotatedValueIndexInternal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getAnnotation"><span class="toc-text">getAnnotation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getAnnotationColor"><span class="toc-text">getAnnotationColor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getIndexedColor"><span class="toc-text">getIndexedColor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getIndexedLookup"><span class="toc-text">getIndexedLookup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getMappingRange"><span class="toc-text">getMappingRange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getMappingRangeByReference"><span class="toc-text">getMappingRangeByReference</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getNumberOfAnnotatedValues"><span class="toc-text">getNumberOfAnnotatedValues</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getNumberOfAvailableColors"><span class="toc-text">getNumberOfAvailableColors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getRange"><span class="toc-text">getRange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getVectorComponent"><span class="toc-text">getVectorComponent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getVectorMode"><span class="toc-text">getVectorMode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getVectorSize"><span class="toc-text">getVectorSize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#isOpaque"><span class="toc-text">isOpaque</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#luminanceAlphaToRGBA"><span class="toc-text">luminanceAlphaToRGBA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#luminanceToRGBA"><span class="toc-text">luminanceToRGBA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mapScalars"><span class="toc-text">mapScalars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mapVectorsThroughTable"><span class="toc-text">mapVectorsThroughTable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mapVectorsToMagnitude"><span class="toc-text">mapVectorsToMagnitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newInstance"><span class="toc-text">newInstance</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rGBAToRGBA"><span class="toc-text">rGBAToRGBA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rGBToRGBA"><span class="toc-text">rGBToRGBA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#removeAnnotation"><span class="toc-text">removeAnnotation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resetAnnotations"><span class="toc-text">resetAnnotations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setAlpha"><span class="toc-text">setAlpha</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setAnnotation"><span class="toc-text">setAnnotation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setAnnotations"><span class="toc-text">setAnnotations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setIndexedLookup"><span class="toc-text">setIndexedLookup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setMappingRange"><span class="toc-text">setMappingRange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setMappingRange-1"><span class="toc-text">setMappingRange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setMappingRangeFrom"><span class="toc-text">setMappingRangeFrom</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setRange"><span class="toc-text">setRange</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setVectorComponent"><span class="toc-text">setVectorComponent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setVectorModeToComponent"><span class="toc-text">setVectorModeToComponent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setVectorModeToMagnitude"><span class="toc-text">setVectorModeToMagnitude</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setVectorModeToRGBColors"><span class="toc-text">setVectorModeToRGBColors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setVectorSize"><span class="toc-text">setVectorSize</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#updateAnnotatedValueMap"><span class="toc-text">updateAnnotatedValueMap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usingLogScale"><span class="toc-text">usingLogScale</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Source"><span class="toc-text">Source</span></a>
               <a href="#" id="article-toc-top">Back to Top</a>
             </div>
           </aside>
