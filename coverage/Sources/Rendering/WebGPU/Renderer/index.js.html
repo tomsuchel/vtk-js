@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">2.51% </span>
+                <span class="strong">2.56% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/199</span>
+                <span class='fraction'>5/195</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/47</span>
+                <span class='fraction'>0/43</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">2.65% </span>
+                <span class="strong">2.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/189</span>
+                <span class='fraction'>5/185</span>
             </div>
         
             
@@ -491,16 +491,7 @@
 <a name='L432'></a><a href='#L432'>432</a>
 <a name='L433'></a><a href='#L433'>433</a>
 <a name='L434'></a><a href='#L434'>434</a>
-<a name='L435'></a><a href='#L435'>435</a>
-<a name='L436'></a><a href='#L436'>436</a>
-<a name='L437'></a><a href='#L437'>437</a>
-<a name='L438'></a><a href='#L438'>438</a>
-<a name='L439'></a><a href='#L439'>439</a>
-<a name='L440'></a><a href='#L440'>440</a>
-<a name='L441'></a><a href='#L441'>441</a>
-<a name='L442'></a><a href='#L442'>442</a>
-<a name='L443'></a><a href='#L443'>443</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L435'></a><a href='#L435'>435</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -832,13 +823,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -943,7 +927,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { vec3, mat4 } from 'gl-matrix';
 import * as macro from 'vtk.js/Sources/macro';
-import * as vtkMath from 'vtk.js/Sources/Common/Core/Math';
 import vtkViewNode from 'vtk.js/Sources/Rendering/SceneGraph/ViewNode';
 import vtkWebGPUBindGroup from 'vtk.js/Sources/Rendering/WebGPU/BindGroup';
 import vtkWebGPUFullScreenQuad from 'vtk.js/Sources/Rendering/WebGPU/FullScreenQuad';
@@ -1262,8 +1245,8 @@ function <span class="fstat-no" title="function not covered" >vtkWebGPURenderer(
 &nbsp;
     // find the lower left corner of the viewport, taking into account the
     // lower left boundary of this tile
-    const vpu = <span class="cstat-no" title="statement not covered" >vtkMath.clampValue(vport[0] - tileViewPort[0], 0.0, 1.0);</span>
-    const vpv = <span class="cstat-no" title="statement not covered" >vtkMath.clampValue(vport[1] - tileViewPort[1], 0.0, 1.0);</span>
+    const vpu = <span class="cstat-no" title="statement not covered" >vport[0] - tileViewPort[0];</span>
+    const vpv = <span class="cstat-no" title="statement not covered" >vport[1] - tileViewPort[1];</span>
 &nbsp;
     // store the result as a pixel value
     const ndvp = <span class="cstat-no" title="statement not covered" >model.parent.normalizedDisplayToDisplay(vpu, vpv);</span>
@@ -1272,15 +1255,8 @@ function <span class="fstat-no" title="function not covered" >vtkWebGPURenderer(
 &nbsp;
     // find the upper right corner of the viewport, taking into account the
     // lower left boundary of this tile
-    let vpu2 = <span class="cstat-no" title="statement not covered" >vtkMath.clampValue(vport[2] - tileViewPort[0], 0.0, 1.0);</span>
-    let vpv2 = <span class="cstat-no" title="statement not covered" >vtkMath.clampValue(vport[3] - tileViewPort[1], 0.0, 1.0);</span>
-    // also watch for the upper right boundary of the tile
-<span class="cstat-no" title="statement not covered" >    if (vpu2 &gt; tileViewPort[2] - tileViewPort[0]) {</span>
-<span class="cstat-no" title="statement not covered" >      vpu2 = tileViewPort[2] - tileViewPort[0];</span>
-    }
-<span class="cstat-no" title="statement not covered" >    if (vpv2 &gt; tileViewPort[3] - tileViewPort[1]) {</span>
-<span class="cstat-no" title="statement not covered" >      vpv2 = tileViewPort[3] - tileViewPort[1];</span>
-    }
+    const vpu2 = <span class="cstat-no" title="statement not covered" >vport[2] - tileViewPort[0];</span>
+    const vpv2 = <span class="cstat-no" title="statement not covered" >vport[3] - tileViewPort[1];</span>
     const ndvp2 = <span class="cstat-no" title="statement not covered" >model.parent.normalizedDisplayToDisplay(vpu2, vpv2);</span>
 &nbsp;
     // now compute the size of the intersection of the viewport with the
@@ -1390,7 +1366,7 @@ registerOverride('vtkRenderer', newInstance);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jun 07 2021 18:51:59 GMT+0000 (Coordinated Universal Time)
+                at Mon Jun 07 2021 19:27:02 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
