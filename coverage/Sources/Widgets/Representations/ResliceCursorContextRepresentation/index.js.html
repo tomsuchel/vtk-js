@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.88% </span>
+                <span class="strong">43.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/32</span>
+                <span class='fraction'>13/30</span>
             </div>
         
             
@@ -411,14 +411,7 @@
 <a name='L352'></a><a href='#L352'>352</a>
 <a name='L353'></a><a href='#L353'>353</a>
 <a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a>
-<a name='L358'></a><a href='#L358'>358</a>
-<a name='L359'></a><a href='#L359'>359</a>
-<a name='L360'></a><a href='#L360'>360</a>
-<a name='L361'></a><a href='#L361'>361</a>
-<a name='L362'></a><a href='#L362'>362</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L355'></a><a href='#L355'>355</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -632,16 +625,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">24x</span>
@@ -805,7 +791,7 @@ function vtkResliceCursorContextRepresentation(publicAPI, model) {
   // --------------------------------------------------------------------------
 &nbsp;
   model.mapper = vtkMapper.newInstance();
-  model.actor = vtkActor.newInstance();
+  model.actor = vtkActor.newInstance({ parentProp: publicAPI });
   model.mapper.setInputConnection(publicAPI.getOutputPort());
   model.actor.setMapper(model.mapper);
   publicAPI.addActor(model.actor);
@@ -814,7 +800,7 @@ function vtkResliceCursorContextRepresentation(publicAPI, model) {
   model.pipelines.center = {
     source: vtkSphereSource.newInstance(),
     mapper: vtkMapper.newInstance(),
-    actor: vtkActor.newInstance(),
+    actor: vtkActor.newInstance({ parentProp: publicAPI }),
   };
   model.pipelines.axes = [];
   // Create axis 1
@@ -822,34 +808,34 @@ function vtkResliceCursorContextRepresentation(publicAPI, model) {
   axis1.line = {
     source: vtkCylinderSource.newInstance(),
     mapper: vtkMapper.newInstance(),
-    actor: vtkActor.newInstance({ pickable: true }),
+    actor: vtkActor.newInstance({ pickable: true, parentProp: publicAPI }),
   };
   axis1.rotation1 = {
     source: vtkSphereSource.newInstance(),
     mapper: vtkMapper.newInstance(),
-    actor: vtkActor.newInstance({ pickable: true }),
+    actor: vtkActor.newInstance({ pickable: true, parentProp: publicAPI }),
   };
   axis1.rotation2 = {
     source: vtkSphereSource.newInstance(),
     mapper: vtkMapper.newInstance(),
-    actor: vtkActor.newInstance({ pickable: true }),
+    actor: vtkActor.newInstance({ pickable: true, parentProp: publicAPI }),
   };
   // Create axis 2
   const axis2 = {};
   axis2.line = {
     source: vtkCylinderSource.newInstance(),
     mapper: vtkMapper.newInstance(),
-    actor: vtkActor.newInstance({ pickable: true }),
+    actor: vtkActor.newInstance({ pickable: true, parentProp: publicAPI }),
   };
   axis2.rotation1 = {
     source: vtkSphereSource.newInstance(),
     mapper: vtkMapper.newInstance(),
-    actor: vtkActor.newInstance({ pickable: true }),
+    actor: vtkActor.newInstance({ pickable: true, parentProp: publicAPI }),
   };
   axis2.rotation2 = {
     source: vtkSphereSource.newInstance(),
     mapper: vtkMapper.newInstance(),
-    actor: vtkActor.newInstance({ pickable: true }),
+    actor: vtkActor.newInstance({ pickable: true, parentProp: publicAPI }),
   };
 &nbsp;
   model.pipelines.axes.push(axis1);
@@ -992,17 +978,10 @@ function vtkResliceCursorContextRepresentation(publicAPI, model) {
     outData[0] = vtkPolyData.newInstance();
   };
 &nbsp;
-  publicAPI.updateActorVisibility = (
-    renderingType,
-    wVisible,
-    ctxVisible,
-    hVisible
-  ) =&gt; {
+  publicAPI.updateActorVisibility = (renderingType, ctxVisible, hVisible) =&gt; {
     const state = model.inputData[0];
     const visibility =
-      renderingType === RenderingTypes.PICKING_BUFFER
-        ? <span class="branch-0 cbranch-no" title="branch not covered" >wVisible</span>
-        : wVisible &amp;&amp; hVisible;
+      hVisible || <span class="branch-1 cbranch-no" title="branch not covered" >renderingType === RenderingTypes.PICKING_BUFFER;</span>
 &nbsp;
     publicAPI.getActors().forEach((actor) =&gt; {
       actor.getProperty().setOpacity(state.getOpacity());
@@ -1147,7 +1126,7 @@ export default { newInstance, extend };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 13:17:22 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 27 2021 09:01:49 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

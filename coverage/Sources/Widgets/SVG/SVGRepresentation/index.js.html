@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.14% </span>
+                <span class="strong">5.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/56</span>
+                <span class='fraction'>3/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.76% </span>
+                <span class="strong">5.88% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/17</span>
+                <span class='fraction'>1/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.27% </span>
+                <span class="strong">5.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/55</span>
+                <span class='fraction'>3/55</span>
             </div>
         
             
@@ -231,7 +231,9 @@
 <a name='L172'></a><a href='#L172'>172</a>
 <a name='L173'></a><a href='#L173'>173</a>
 <a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,7 +247,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,7 +272,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,6 +302,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -357,7 +362,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -418,8 +422,8 @@ const SVG_XMLNS = 'http://www.w3.org/2000/svg';
 &nbsp;
 // ----------------------------------------------------------------------------
 &nbsp;
-function createSvgElement(tag) {
-  return {
+function <span class="fstat-no" title="function not covered" >createSvgElement(</span>tag) {
+<span class="cstat-no" title="statement not covered" >  return {</span>
     name: tag,
     attrs: {},
     eventListeners: {},
@@ -473,7 +477,10 @@ function <span class="fstat-no" title="function not covered" >vtkSVGRepresentati
 &nbsp;
   let deferred = <span class="cstat-no" title="statement not covered" >null;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  model.psActor = vtkActor.newInstance({ pickable: false });</span>
+<span class="cstat-no" title="statement not covered" >  model.psActor = vtkActor.newInstance({</span>
+    pickable: false,
+    parentProp: publicAPI,
+  });
 <span class="cstat-no" title="statement not covered" >  model.psMapper = vtkPixelSpaceCallbackMapper.newInstance();</span>
 <span class="cstat-no" title="statement not covered" >  model.points = vtkPolyData.newInstance();</span>
 &nbsp;
@@ -532,14 +539,13 @@ function <span class="fstat-no" title="function not covered" >vtkSVGRepresentati
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  publicAPI.updateActorVisibility = <span class="fstat-no" title="function not covered" >(</span></span>
     renderingType = <span class="branch-0 cbranch-no" title="branch not covered" >RenderingTypes.FRONT_BUFFER,</span>
-    widgetVisible = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
     ctxVisible = <span class="branch-0 cbranch-no" title="branch not covered" >true,</span>
     handleVisible = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
   ) =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (model.behavior === Behavior.CONTEXT) {</span>
-<span class="cstat-no" title="statement not covered" >      publicAPI.setVisibility(widgetVisible &amp;&amp; ctxVisible);</span>
+<span class="cstat-no" title="statement not covered" >      publicAPI.setVisibility(ctxVisible);</span>
     } else <span class="cstat-no" title="statement not covered" >if (model.behavior === Behavior.HANDLE) {</span>
-<span class="cstat-no" title="statement not covered" >      publicAPI.setVisibility(widgetVisible &amp;&amp; handleVisible);</span>
+<span class="cstat-no" title="statement not covered" >      publicAPI.setVisibility(handleVisible);</span>
     }
   };
 &nbsp;
@@ -586,7 +592,7 @@ export default { extend, createSvgElement, createSvgDomElement };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 13:17:22 GMT+0000 (Coordinated Universal Time)
+                at Tue Jul 27 2021 09:01:49 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
