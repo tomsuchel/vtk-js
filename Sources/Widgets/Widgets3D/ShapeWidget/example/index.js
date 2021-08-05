@@ -112,10 +112,12 @@ scene.rectangleHandle.setTextProps({
   'text-anchor': 'middle',
   'alignment-baseline': 'middle',
 });
+
 scene.ellipseHandle = scene.widgetManager.addWidget(
   widgets.ellipseWidget,
   ViewTypes.SLICE
 );
+
 scene.circleHandle = scene.widgetManager.addWidget(
   widgets.circleWidget,
   ViewTypes.SLICE

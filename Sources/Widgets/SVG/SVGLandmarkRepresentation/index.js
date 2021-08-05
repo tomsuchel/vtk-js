@@ -97,8 +97,8 @@ function defaultValues(initialValues) {
     },
     textProps: {
       fill: 'white',
-      dx: 12,
-      dy: -12,
+      dx: 0,
+      dy: 0,
       ...initialValues.textProps,
     },
   };
