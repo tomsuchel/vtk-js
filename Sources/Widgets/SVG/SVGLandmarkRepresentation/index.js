@@ -107,9 +107,7 @@ function defaultValues(initialValues) {
 // ----------------------------------------------------------------------------
 
 export function extend(publicAPI, model, initialValues = {}) {
-  Object.assign(model, defaultValues(initialValues));
-
-  vtkSVGRepresentation.extend(publicAPI, model, initialValues);
+  vtkSVGRepresentation.extend(publicAPI, model, defaultValues(initialValues));
 
   macro.setGet(publicAPI, model, [
     'circleProps',
