@@ -108,7 +108,7 @@ scene.rectangleHandle = scene.widgetManager.addWidget(
 );
 scene.rectangleHandle.setHandleVisibility(false);
 scene.rectangleHandle.setTextProps({
-  fill: 'white',
+  ...scene.rectangleHandle.getTextProps(),
   'text-anchor': 'middle',
   'alignment-baseline': 'middle',
 });
@@ -117,6 +117,11 @@ scene.ellipseHandle = scene.widgetManager.addWidget(
   widgets.ellipseWidget,
   ViewTypes.SLICE
 );
+scene.ellipseHandle.setTextProps({
+  ...scene.ellipseHandle.getTextProps(),
+  'text-anchor': 'middle',
+  'alignment-baseline': 'middle',
+});
 
 scene.circleHandle = scene.widgetManager.addWidget(
   widgets.circleWidget,
