@@ -22,6 +22,8 @@ import {
   ShapeBehavior,
 } from 'vtk.js/Sources/Widgets/Widgets3D/ShapeWidget/Constants';
 
+import { VerticalTextAlignment } from 'vtk.js/Sources/Widgets/SVG/SVGLandmarkRepresentation/Constants';
+
 import { ViewTypes } from 'vtk.js/Sources/Widgets/Core/WidgetManager/Constants';
 
 import { vec3 } from 'gl-matrix';
@@ -110,7 +112,7 @@ scene.rectangleHandle.setHandleVisibility(false);
 scene.rectangleHandle.setTextProps({
   ...scene.rectangleHandle.getTextProps(),
   'text-anchor': 'middle',
-  'alignment-baseline': 'middle',
+  verticalAlign: VerticalTextAlignment.MIDDLE,
 });
 
 scene.ellipseHandle = scene.widgetManager.addWidget(
@@ -120,7 +122,7 @@ scene.ellipseHandle = scene.widgetManager.addWidget(
 scene.ellipseHandle.setTextProps({
   ...scene.ellipseHandle.getTextProps(),
   'text-anchor': 'middle',
-  'alignment-baseline': 'middle',
+  verticalAlign: VerticalTextAlignment.MIDDLE,
 });
 
 scene.circleHandle = scene.widgetManager.addWidget(
