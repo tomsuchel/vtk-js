@@ -18,8 +18,8 @@ import vtkSphere from 'vtk.js/Sources/Common/DataModel/Sphere';
 
 import {
   BehaviorCategory,
-  HorizontalTextPosition,
   ShapeBehavior,
+  TextPosition,
 } from 'vtk.js/Sources/Widgets/Widgets3D/ShapeWidget/Constants';
 
 import { VerticalTextAlignment } from 'vtk.js/Sources/Widgets/SVG/SVGLandmarkRepresentation/Constants';
@@ -58,10 +58,11 @@ function setCamera(sliceMode, renderer, data) {
   const ijk = [0, 0, 0];
   const position = [0, 0, 0];
   const focalPoint = [0, 0, 0];
+  const viewUp = sliceMode === 1 ? [0, 0, 1] : [0, 1, 0];
   data.indexToWorld(ijk, focalPoint);
   ijk[sliceMode] = 1;
   data.indexToWorld(ijk, position);
-  renderer.getActiveCamera().set({ focalPoint, position });
+  renderer.getActiveCamera().set({ focalPoint, position, viewUp });
   renderer.resetCamera();
 }
 
@@ -102,7 +103,11 @@ widgets.circleWidget = vtkEllipseWidget.newInstance({
 widgets.circleWidget.getWidgetState().getPoint1Handle().setScale1(20);
 widgets.circleWidget
   .getWidgetState()
-  .setHorizontalTextPosition(HorizontalTextPosition.OUTSIDE_RIGHT);
+  .setTextPosition([
+    TextPosition.MAX,
+    TextPosition.CENTER,
+    TextPosition.CENTER,
+  ]);
 
 scene.rectangleHandle = scene.widgetManager.addWidget(
   widgets.rectangleWidget,
@@ -114,6 +119,13 @@ scene.rectangleHandle.setTextProps({
   'text-anchor': 'middle',
   verticalAlign: VerticalTextAlignment.MIDDLE,
 });
+widgets.rectangleWidget
+  .getWidgetState()
+  .setTextPosition([
+    TextPosition.CENTER,
+    TextPosition.CENTER,
+    TextPosition.CENTER,
+  ]);
 
 scene.ellipseHandle = scene.widgetManager.addWidget(
   widgets.ellipseWidget,
