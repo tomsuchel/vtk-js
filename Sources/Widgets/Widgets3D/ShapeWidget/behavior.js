@@ -541,12 +541,10 @@ export default function widgetBehavior(publicAPI, model) {
       model.isDragging = true;
       model.apiSpecificRenderWindow.setCursor('grabbing');
       model.interactor.requestAnimation(publicAPI);
-      publicAPI.invokeStartInteractionEvent();
-
-      return macro.EVENT_ABORT;
     }
 
-    return macro.VOID;
+    publicAPI.invokeStartInteractionEvent();
+    return macro.EVENT_ABORT;
   };
 
   // --------------------------------------------------------------------------
