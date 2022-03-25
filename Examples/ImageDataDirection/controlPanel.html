@@ -1,0 +1,43 @@
+<table>
+    <tr>
+      <td>Slice #</td>
+      <td>
+        <input class="slice" type="range" min="0" max="0" step="1">
+      </td>
+    </tr>
+    <tr>
+      <td>Slice Axis</td>
+      <td>
+        <select class="axis">
+          <option name="I">I</option>
+          <option name="J">J</option>
+          <option name="K" selected>K</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+    <td>Rot. I</td>
+      <td>
+        <input id="rotI" type="range" min="0" max="180" step="1" value="0">
+      </td>
+      <td id="valI">0</td>
+    </tr>
+    <td>Rot. J</td>
+      <td>
+        <input id="rotJ" type="range" min="0" max="180" step="1" value="0">
+      </td>
+      <td id="valJ">0</td>
+    </tr>
+    <td>Rot. K</td>
+      <td>
+        <input id="rotK" type="range" min="0" max="180" step="1" value="0">
+      </td>
+      <td id="valK">0</td>
+    </tr>
+    <tr>
+      <td>Direction</td>
+      <td>
+          <textarea id="direction" style="height:50px">1,0,0,0,1,0,0,0,1</textarea>
+      </td>
+  </tr>
+  </table>

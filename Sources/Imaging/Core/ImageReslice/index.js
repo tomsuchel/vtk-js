@@ -135,6 +135,7 @@ function vtkImageReslice(publicAPI, model) {
     const outSpacing = [1, 1, 1];
     const outWholeExt = [0, 0, 0, 0, 0, 0];
     const outDims = [0, 0, 0];
+    const outDirection = input.getDirection(); // [1, 0, 0, 0, 1, 0, 0, 0, 1];
 
     let matrix = null;
     if (model.resliceAxes) {
@@ -250,6 +251,7 @@ function vtkImageReslice(publicAPI, model) {
     output.setDimensions(outDims);
     output.setOrigin(outOrigin);
     output.setSpacing(outSpacing);
+    output.setDirection(outDirection);
     output.getPointData().setScalars(outScalars);
 
     publicAPI.getIndexMatrix(input, output);
