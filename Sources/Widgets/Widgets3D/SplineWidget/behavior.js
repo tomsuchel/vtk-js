@@ -1,3 +1,4 @@
+/* eslint-disable */
 import macro from 'vtk.js/Sources/macros';
 import { vec3 } from 'gl-matrix';
 
@@ -204,6 +205,7 @@ export default function widgetBehavior(publicAPI, model) {
     }
 
     if (model.activeState === model.moveHandle) {
+      console.log('New point');
       if (model.widgetState.getHandleList().length === 0) {
         publicAPI.invokeStartInteractionEvent();
         addPoint();
@@ -224,9 +226,11 @@ export default function widgetBehavior(publicAPI, model) {
       model.freeHand = publicAPI.getAllowFreehand() && !model.isDragging;
     } else {
       model.isDragging = true;
+      model.manipulator.setOrigin(model.activeState.getOrigin());
       model.apiSpecificRenderWindow.setCursor('grabbing');
       model.interactor.requestAnimation(publicAPI);
       publicAPI.invokeStartInteractionEvent();
+      console.log('splineWidget ->', model.isDragging);
     }
 
     return macro.EVENT_ABORT;

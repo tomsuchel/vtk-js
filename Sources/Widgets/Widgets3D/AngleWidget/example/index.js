@@ -9,7 +9,10 @@ import vtkCubeSource from 'vtk.js/Sources/Filters/Sources/CubeSource';
 import vtkFullScreenRenderWindow from 'vtk.js/Sources/Rendering/Misc/FullScreenRenderWindow';
 import vtkMapper from 'vtk.js/Sources/Rendering/Core/Mapper';
 import vtkAngleWidget from 'vtk.js/Sources/Widgets/Widgets3D/AngleWidget';
+// import vtkDistanceWidget from 'vtk.js/Sources/Widgets/Widgets3D/DistanceWidget';
 import vtkWidgetManager from 'vtk.js/Sources/Widgets/Core/WidgetManager';
+import vtkPlane from 'vtk.js/Sources/Common/DataModel/Plane';
+import vtkLineWidget from 'vtk.js/Sources/Widgets/Widgets3D/LineWidget';
 
 import controlPanel from './controlPanel.html';
 
@@ -39,10 +42,52 @@ renderer.addActor(actor);
 const widgetManager = vtkWidgetManager.newInstance();
 widgetManager.setRenderer(renderer);
 
-const widget = vtkAngleWidget.newInstance();
-widget.placeWidget(cone.getOutputData().getBounds());
+const plane = vtkPlane.newInstance();
+plane.setNormal(0.0, 0.0, 1.0);
+plane.setOrigin(0.0, 0.0, 0.0);
 
-widgetManager.addWidget(widget);
+/* Angle widget */
+const angleWidget = vtkAngleWidget.newInstance();
+
+const anglePoints = [
+  [-0.5, 0.5, -0.5],
+  [-0.5, -0.5, 0.5],
+  [0.5, -0.5, -0.5],
+];
+
+anglePoints.forEach((pt) => {
+  const handle = angleWidget.getWidgetState().addHandle();
+  handle.setOrigin(pt);
+});
+
+widgetManager.addWidget(angleWidget);
+
+console.log('angle =', angleWidget.getAngle());
+
+/* Distance widget */
+const distanceWidget = vtkLineWidget.newInstance();
+
+// const distancePoints = [
+//   [-0.5, -0.5, 0.5],
+//   [0.5, 0.5, 0.5],
+// ];
+
+// distancePoints.forEach((pt) => {
+//   const handle = distanceWidget.getWidgetState().addHandle();
+//   handle.setOrigin(pt);
+// });
+
+distanceWidget.getWidgetState().getHandle1().setOrigin([-0.5, -0.5, -0.5]);
+distanceWidget.getWidgetState().getHandle2().setOrigin([0.5, 0.5, 0.5]);
+distanceWidget.getWidgetState().getHandle1().setShape('sphere');
+distanceWidget.getWidgetState().getHandle2().setShape('sphere');
+
+const distanceHandle = widgetManager.addWidget(distanceWidget);
+
+distanceHandle.updateHandleVisibility(0);
+distanceHandle.updateHandleVisibility(1);
+
+console.log('distance =', distanceWidget.getDistance());
 
 renderer.resetCamera();
 widgetManager.enablePicking();
@@ -53,16 +98,12 @@ widgetManager.enablePicking();
 
 fullScreenRenderer.addController(controlPanel);
 
-widget.getWidgetState().onModified(() => {
-  document.querySelector('#angle').innerText = widget.getAngle();
-});
-
 document.querySelector('button').addEventListener('click', () => {
-  widgetManager.grabFocus(widget);
+  widgetManager.grabFocus(angleWidget);
 });
 
 // -----------------------------------------------------------
 // globals
 // -----------------------------------------------------------
 
-global.widget = widget;
+// global.widget = angleWidget;
